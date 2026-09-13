@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# furab-web
 
-## Getting Started
+Marketing site for **FURAB — for your baby**, an iOS baby-tracking app.
 
-First, run the development server:
+The pitch is **THR: Track, Highlight, Remind**.
+
+## Stack
+
+Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4. Fully static —
+`next build` prerenders the single route, so it deploys anywhere.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # static production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Brand
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Tokens in `src/app/globals.css` are lifted from the app's `Theme.swift` so the
+site and the product read as one thing:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Token | Value | Use |
+| --- | --- | --- |
+| `--brand` | `#0abba5` | Teal. Actions only, as in the app. |
+| `--boy` / `--girl` | `#a3c7e5` / `#f2a3b4` | The gender accents the app themes itself with. |
+| `--ink` | `#111116` | Primary text. |
+| `--page` | `#ededf0` | Page background. |
 
-## Learn More
+Two effects are ported from the app rather than reinvented:
 
-To learn more about Next.js, take a look at the following resources:
+- **`.mesh`** approximates the launch screen's animated `MeshGradient` with
+  three large radial blooms on slow, non-harmonic cycles.
+- **`.glass-mark`** reproduces `GlassMark`: the smiley SVG is used as a *mask*
+  with the glass layered underneath, so the gradient reads through the
+  knocked-out eyes and mouth.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Both honour `prefers-reduced-motion`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Assets
 
-## Deploy on Vercel
+`public/screenshots/` holds web-optimised captures (max 1200px). The
+full-resolution 1320 × 2868 originals for App Store Connect live in the app
+repo under `AppStore/screenshots/6.9-inch/`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`public/brand/` holds the logo mark, wordmark and app icon, copied from the
+app's asset catalogue.

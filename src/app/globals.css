@@ -1,26 +1,81 @@
 @import "tailwindcss";
 
+/* Brand tokens, lifted from the app's Theme.swift so the site and the
+   product read as one thing. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --brand: #0abba5;         /* teal — actions only, as in the app */
+  --brand-dark: #0f9888;
+  --boy: #a3c7e5;           /* the two gender accents */
+  --girl: #f2a3b4;
+  --ink: #111116;
+  --muted: #7a7b82;
+  --faint: #aeafb6;
+  --surface: #ffffff;
+  --page: #ededf0;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
+  --color-boy: var(--boy);
+  --color-girl: var(--girl);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-surface: var(--surface);
+  --color-page: var(--page);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--page);
+  color: var(--ink);
+  /* Match the app's SF Pro on Apple devices, degrade sensibly elsewhere. */
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The launch screen's drifting mesh, approximated with blooms that wander.
+   The app animates a real MeshGradient; on the web three large radial
+   gradients on slow, non-harmonic cycles read the same way. */
+.mesh {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 55% at 20% 18%, #8ec0e8 0%, transparent 62%),
+    radial-gradient(58% 52% at 82% 30%, #f5b8c8 0%, transparent 60%),
+    radial-gradient(70% 60% at 50% 92%, #f2a3b4 0%, transparent 66%),
+    linear-gradient(160deg, #bcd8ef 0%, #e9e6ec 48%, #f7ccda 100%);
+  animation: drift 22s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  0%   { background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%; transform: scale(1.06) translate3d(0,0,0); }
+  50%  { background-position: 8% 6%, -6% 4%, 4% -6%, 0% 0%; transform: scale(1.12) translate3d(-1.5%, 1%, 0); }
+  100% { background-position: -6% 8%, 7% -5%, -5% 5%, 0% 0%; transform: scale(1.06) translate3d(1.5%, -1%, 0); }
+}
+
+/* The glass smiley, built the same way as GlassMark in the app: the artwork
+   is a mask and the glass is layered underneath, so the gradient reads
+   through the knocked-out eyes and mouth. */
+.glass-mark {
+  -webkit-mask-image: url("/brand/logo-white.svg");
+  mask-image: url("/brand/logo-white.svg");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  background:
+    radial-gradient(circle at 32% 24%, rgba(255,255,255,0.55), transparent 58%),
+    linear-gradient(135deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.74) 50%, rgba(255,255,255,0.54) 100%);
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.22));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mesh { animation: none; }
+  html { scroll-behavior: auto; }
 }

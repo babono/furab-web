@@ -29,11 +29,12 @@ site and the product read as one thing:
 
 Two effects are ported from the app rather than reinvented:
 
-- **`.mesh`** approximates the launch screen's animated `MeshGradient` by
-  animating the *positions* of three radial blooms on non-harmonic cycles
-  (6s / 8s / 11s). The positions are custom properties registered with
-  `@property` — an unregistered var is a plain token and will not interpolate,
-  so without the registration the gradient sits still.
+- **`.mesh`** approximates the launch screen's animated `MeshGradient` with two
+  radial blooms moved by `translate3d` on non-harmonic cycles (7s / 9s).
+  Animating gradient *positions* instead — even via `@property` — repaints the
+  whole element every frame, which flickered on a large hero. Soft edges come
+  from the radial-gradient itself, not a blur filter, which would re-rasterise
+  as the layer moves.
 - **`.coin`** is the smiley behind the hero, turning on its vertical axis like
   a coin. Depth is faked by stacking five masked copies at different
   `translateZ` values under `preserve-3d`; they separate as it turns, which

@@ -38,37 +38,46 @@ body {
 }
 
 /* The launch screen's drifting mesh.
-   The app animates a real MeshGradient by moving its control points; the web
-   equivalent is to animate the *positions* of three radial blooms. That needs
-   the custom properties registered with @property — an unregistered var is a
-   plain token and will not interpolate, which is why the earlier
-   background-position version barely moved.
-   The three cycles are non-harmonic (11s / 14s / 17s), as in the app, so the
-   loop never visibly repeats. */
-@property --bx1 { syntax: "<percentage>"; initial-value: 18%; inherits: false; }
-@property --by1 { syntax: "<percentage>"; initial-value: 16%; inherits: false; }
-@property --bx2 { syntax: "<percentage>"; initial-value: 84%; inherits: false; }
-@property --by2 { syntax: "<percentage>"; initial-value: 28%; inherits: false; }
-@property --bx3 { syntax: "<percentage>"; initial-value: 46%; inherits: false; }
-@property --by3 { syntax: "<percentage>"; initial-value: 92%; inherits: false; }
-
+   Animating gradient *positions* (even via @property) repaints the whole
+   element every frame — across a large hero on a Retina display that is a lot
+   of pixels, and it showed up as flicker. These blooms are real boxes moved
+   with translate3d instead, which the compositor handles without repainting.
+   Soft edges come from the radial-gradient itself rather than a blur filter,
+   which would re-rasterise as the layer moves.
+   Two non-harmonic cycles (7s / 9s) so the drift never visibly repeats. */
 .mesh {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(62% 58% at var(--bx1) var(--by1), #7db6e4 0%, transparent 62%),
-    radial-gradient(58% 54% at var(--bx2) var(--by2), #f7b4c6 0%, transparent 60%),
-    radial-gradient(72% 62% at var(--bx3) var(--by3), #f2a3b4 0%, transparent 66%),
-    linear-gradient(160deg, #bcd8ef 0%, #e9e6ec 48%, #f7ccda 100%);
-  animation:
-    bloom1 6s ease-in-out infinite alternate,
-    bloom2 8s ease-in-out infinite alternate,
-    bloom3 11s ease-in-out infinite alternate;
+  overflow: hidden;
+  background: linear-gradient(160deg, #bcd8ef 0%, #e9e6ec 48%, #f7ccda 100%);
 }
 
-@keyframes bloom1 { to { --bx1: 42%; --by1: 40%; } }
-@keyframes bloom2 { to { --bx2: 58%; --by2: 8%;  } }
-@keyframes bloom3 { to { --bx3: 24%; --by3: 68%; } }
+.mesh::before,
+.mesh::after {
+  content: "";
+  position: absolute;
+  width: 78%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.mesh::before {
+  left: -12%;
+  top: -20%;
+  background: radial-gradient(circle, rgba(112, 176, 228, 0.95) 0%, rgba(112, 176, 228, 0) 68%);
+  animation: float-a 7s ease-in-out infinite alternate;
+}
+
+.mesh::after {
+  right: -14%;
+  bottom: -22%;
+  background: radial-gradient(circle, rgba(244, 158, 178, 0.95) 0%, rgba(244, 158, 178, 0) 68%);
+  animation: float-b 9s ease-in-out infinite alternate;
+}
+
+@keyframes float-a { to { transform: translate3d(26%, 22%, 0) scale(1.12); } }
+@keyframes float-b { to { transform: translate3d(-22%, -18%, 0) scale(1.1); } }
 
 /* The brand mark behind the hero, as a glass coin turning on its vertical
    axis. Depth is faked by stacking several masked copies at different
@@ -85,6 +94,9 @@ body {
   transform: translate(-50%, -50%);
   perspective: 1400px;
   pointer-events: none;
+  /* Keep the stack's blending self-contained rather than letting it interact
+     with everything painted behind it. */
+  isolation: isolate;
 }
 
 .coin {
@@ -93,6 +105,7 @@ body {
   width: 100%;
   transform-style: preserve-3d;
   animation: coin-spin 13s linear infinite;
+  will-change: transform;
 }
 
 .coin-face {
@@ -148,7 +161,8 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mesh { animation: none; }
+  .mesh::before,
+  .mesh::after { animation: none; }
   .coin { animation: none; }
   html { scroll-behavior: auto; }
 }

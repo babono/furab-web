@@ -35,7 +35,7 @@ export function SiteHeader() {
   );
 }
 
-const team = ["babono", "grace", "nathan", "adi", "farhan", "ryan"];
+const team = ["Babono", "Grace", "Nathan", "Adi", "Farhan", "Ryan"];
 
 /** Apple's mark, drawn inline so it renders off Apple platforms too — the
  *    glyph is a private-use character and shows as a box elsewhere. */
@@ -65,7 +65,6 @@ export function SiteFooter() {
             </p>
 
             <p className="mt-2 text-sm text-muted">
-              Made by{" "}
               {team.map((name, i) => (
                 <span key={name}>
                   <span className="font-medium text-ink/80">{name}</span>

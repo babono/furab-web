@@ -1,23 +1,25 @@
 import Image from "next/image";
 import { Phone } from "@/components/Phone";
+import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import { HighlightIcon, RemindIcon, TrackIcon } from "@/components/Icon";
 
 const pillars = [
   {
-    letter: "T",
+    Icon: TrackIcon,
     title: "Track",
     body:
       "Every feed, nappy, nap, bath, dose and tummy-time session — and mom's own pumping and meals, so a reaction can be traced back to what she ate.",
     points: ["One-tap quick add", "How much, how long, which method", "Photos on nappies and meals"],
   },
   {
-    letter: "H",
+    Icon: HighlightIcon,
     title: "Highlight",
     body:
       "Your logs become plain-language highlights — averages, trends, and what changed today — written on your device by Apple Intelligence. Nothing is uploaded.",
     points: ["Day, weekly and monthly charts", "Written on-device", "Works offline"],
   },
   {
-    letter: "R",
+    Icon: RemindIcon,
     title: "Remind",
     body:
       "Medication schedules that know what's already been given, and feed reminders that follow the last one. Mark a dose taken or skipped in a tap.",
@@ -48,6 +50,8 @@ const shots = [
 export default function Home() {
   return (
     <main className="overflow-x-hidden">
+      <SiteHeader />
+
       {/* ---------------------------------------------------------------- Hero */}
       <section className="relative isolate overflow-hidden">
         <div className="mesh" aria-hidden />
@@ -94,8 +98,8 @@ export default function Home() {
               <Phone
                 src="/screenshots/01-home.png"
                 alt="FURAB home screen showing today's milk, nappies and medications"
+                width={288}
                 priority
-                className="w-56 sm:w-64 md:w-72"
               />
             </div>
           </div>
@@ -117,8 +121,8 @@ export default function Home() {
               key={p.title}
               className="rounded-3xl bg-surface p-8 shadow-sm ring-1 ring-black/5"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand text-xl font-bold text-white">
-                {p.letter}
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand text-white">
+                <p.Icon className="h-6 w-6" />
               </div>
               <h3 className="mt-6 text-2xl font-bold tracking-tight">{p.title}</h3>
               <p className="mt-3 leading-relaxed text-muted">{p.body}</p>
@@ -148,8 +152,8 @@ export default function Home() {
 
           <div className="mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-6">
             {shots.map((s) => (
-              <figure key={s.src} className="w-48 shrink-0 snap-center sm:w-56">
-                <Phone src={s.src} alt={s.alt} />
+              <figure key={s.src} className="shrink-0 snap-center">
+                <Phone src={s.src} alt={s.alt} width={208} />
                 <figcaption className="mt-4 text-center text-sm text-white/60">
                   {s.caption}
                 </figcaption>
@@ -197,7 +201,7 @@ export default function Home() {
               being able to.
             </p>
             <ul className="mt-8 grid gap-3 sm:grid-cols-3">
-              {["No accounts to create", "No analytics, no ads", "Works offline"].map((t) => (
+              {["No password to create", "No analytics, no ads", "Works offline"].map((t) => (
                 <li
                   key={t}
                   className="rounded-xl bg-white/70 px-4 py-3 text-sm font-medium backdrop-blur"
@@ -210,26 +214,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* -------------------------------------------------------------- Footer */}
-      <footer className="border-t border-black/5 py-12">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-5 px-6 sm:flex-row sm:justify-between">
-          <div className="flex items-center gap-3">
-            <Image
-              src="/brand/appicon.png"
-              alt=""
-              width={40}
-              height={40}
-              className="rounded-xl"
-            />
-            <span className="text-sm text-muted">
-              FURAB — for your baby
-            </span>
-          </div>
-          <p className="text-sm text-faint">
-            © {new Date().getFullYear()} FURAB. Made for tired parents.
-          </p>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

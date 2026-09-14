@@ -52,3 +52,11 @@ repo under `AppStore/screenshots/6.9-inch/`.
 
 `public/brand/` holds the logo mark, wordmark and app icon, copied from the
 app's asset catalogue.
+
+Favicons live in `src/app/` under Next's file conventions (`icon.svg`,
+`icon.png`, `favicon.ico`, `apple-icon.png`) — there is no `icons` field in the
+metadata. The browser-tab icons put the smiley on **brand teal** rather than
+reusing the app icon: the app icon's pale gradient is unreadable at 16px.
+`apple-icon.png` does use the real app icon, so a home-screen bookmark matches
+the installed app. `icon.svg` is generated from the same logo path the app
+ships, so it cannot drift from the mark.

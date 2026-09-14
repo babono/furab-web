@@ -22,7 +22,8 @@ export const metadata: Metadata = {
     images: [{ url: "/screenshots/01-home.png", width: 1320, height: 2868 }],
   },
   twitter: { card: "summary_large_image", title: "FURAB — for your baby", description },
-  icons: { icon: "/brand/appicon.png", apple: "/brand/appicon.png" },
+  // Icons come from the file conventions in this directory — icon.svg,
+  // icon.png and apple-icon.png — so there is no `icons` field here.
 };
 
 export const viewport: Viewport = {

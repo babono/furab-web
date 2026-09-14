@@ -166,3 +166,39 @@ body {
   .coin { animation: none; }
   html { scroll-behavior: auto; }
 }
+
+/* Full-bleed auto-scrolling strip of screenshots.
+   Each item carries its own right margin instead of the track using `gap`:
+   with a gap, half the track width does not coincide with the start of the
+   second copy, and the loop jumps at the seam. */
+.marquee {
+  overflow: hidden;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 46s linear infinite;
+  will-change: transform;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-item {
+  margin-right: 2.5rem;
+  flex: 0 0 auto;
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee { overflow-x: auto; }
+  .marquee-track { animation: none; }
+}

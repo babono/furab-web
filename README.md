@@ -55,8 +55,14 @@ ever moves.
 
 ## Assets
 
-`public/screenshots/` holds web-optimised captures (max 1200px). The
-full-resolution 1320 × 2868 originals for App Store Connect live in the app
+`public/screenshots/` holds web-optimised captures (max 1200px) in two sets,
+`girl/` (Cia, pink) and `boy/` (Cio, blue) — the app themes itself by the
+baby's gender, and the site picks one at random on every load as an easter
+egg. The choice is made after mount, not during render: the page is
+prerendered, so picking at render time would bake one variant into the HTML
+and mismatch on hydration.
+
+The full-resolution 1320 × 2868 originals for App Store Connect live in the app
 repo under `AppStore/screenshots/6.9-inch/`.
 
 `public/brand/` holds the logo mark, wordmark and app icon, copied from the

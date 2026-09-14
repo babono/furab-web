@@ -1,5 +1,7 @@
+"use client";
+
 import Image from "next/image";
-import { Phone } from "@/components/Phone";
+import { HeroPhone, ScreenMarquee, useVariant } from "@/components/Screens";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { HighlightIcon, RemindIcon, TrackIcon } from "@/components/Icon";
 import { moduleIcons } from "@/components/ModuleIcons";
@@ -46,15 +48,10 @@ const modules = [
   { name: "Mom Meals", blurb: "What mom ate, for allergy hunting" },
 ];
 
-const shots = [
-  { src: "/screenshots/01-home.png", alt: "The FURAB home screen", caption: "Today at a glance" },
-  { src: "/screenshots/03-milk.png", alt: "Milk charts and highlights", caption: "Charts and highlights" },
-  { src: "/screenshots/04-medications.png", alt: "Medication schedule", caption: "Doses, on schedule" },
-  { src: "/screenshots/02-log.png", alt: "The full log feed", caption: "Every entry, one feed" },
-  { src: "/screenshots/05-addmilk.png", alt: "Adding a milk entry", caption: "Logging in seconds" },
-];
 
 export default function Home() {
+  const variant = useVariant();
+
   return (
     <main className="overflow-x-hidden">
       <SiteHeader />
@@ -108,12 +105,7 @@ export default function Home() {
             </div>
 
             <div className="flex justify-center md:justify-end">
-              <Phone
-                src="/screenshots/01-home.png"
-                alt="FURAB home screen showing today's milk, nappies and medications"
-                width={288}
-                priority
-              />
+              <HeroPhone variant={variant} />
             </div>
           </div>
         </div>
@@ -153,26 +145,19 @@ export default function Home() {
       </section>
 
       {/* --------------------------------------------------------- Screenshots */}
-      <section className="relative overflow-hidden bg-ink py-20 md:py-28">
+      <section className="overflow-hidden bg-surface py-20 md:py-28">
         <div className="mx-auto max-w-6xl px-6">
-          <h2 className="max-w-2xl text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h2 className="max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
             Built to be used at 3am.
           </h2>
-          <p className="mt-4 max-w-xl leading-relaxed text-white/60">
+          <p className="mt-4 max-w-xl leading-relaxed text-muted">
             Big targets, no menus to dig through, and a home screen that answers
             &ldquo;how is today going?&rdquo; before you have finished waking up.
           </p>
+        </div>
 
-          <div className="mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-6">
-            {shots.map((s) => (
-              <figure key={s.src} className="shrink-0 snap-center">
-                <Phone src={s.src} alt={s.alt} width={208} />
-                <figcaption className="mt-4 text-center text-sm text-white/60">
-                  {s.caption}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
+        <div className="mt-14">
+          <ScreenMarquee variant={variant} />
         </div>
       </section>
 

@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Phone } from "@/components/Phone";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { HighlightIcon, RemindIcon, TrackIcon } from "@/components/Icon";
+import { moduleIcons } from "@/components/ModuleIcons";
 
 /** Slices stacked through the coin's depth. Enough of them that the stack reads
  *  as solid when it turns edge-on; too few and you see separate discs. */
@@ -186,15 +187,23 @@ export default function Home() {
         </p>
 
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {modules.map((m) => (
-            <div
-              key={m.name}
-              className="rounded-2xl bg-surface p-6 shadow-sm ring-1 ring-black/5"
-            >
-              <h3 className="font-semibold">{m.name}</h3>
-              <p className="mt-1.5 text-sm text-muted">{m.blurb}</p>
-            </div>
-          ))}
+          {modules.map((m) => {
+            const Icon = moduleIcons[m.name];
+            return (
+              <div
+                key={m.name}
+                className="flex items-start gap-4 rounded-2xl bg-surface p-6 shadow-sm ring-1 ring-black/5"
+              >
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand-dark">
+                  <Icon className="h-6 w-6" />
+                </span>
+                <div>
+                  <h3 className="font-semibold">{m.name}</h3>
+                  <p className="mt-1 text-sm text-muted">{m.blurb}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 

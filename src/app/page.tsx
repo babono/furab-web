@@ -3,6 +3,12 @@ import { Phone } from "@/components/Phone";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { HighlightIcon, RemindIcon, TrackIcon } from "@/components/Icon";
 
+/** Slices stacked through the coin's depth. Enough of them that the stack reads
+ *  as solid when it turns edge-on; too few and you see separate discs. */
+const COIN_SLICES = 17;
+/** Total depth in px, front face to back face. */
+const COIN_DEPTH = 74;
+
 const pillars = [
   {
     Icon: TrackIcon,
@@ -57,13 +63,21 @@ export default function Home() {
         <div className="mesh" aria-hidden />
         <div className="coin-stage" aria-hidden>
           <div className="coin">
-            <span className="coin-face coin-face--inner" style={{ "--z": "-14px" } as React.CSSProperties} />
-            <span className="coin-face coin-face--inner" style={{ "--z": "-7px" } as React.CSSProperties} />
-            <span className="coin-face" style={{ "--z": "0px" } as React.CSSProperties} />
-            <span className="coin-face coin-face--inner" style={{ "--z": "7px" } as React.CSSProperties} />
-            <span className="coin-face coin-face--inner" style={{ "--z": "14px" } as React.CSSProperties} />
+            {Array.from({ length: COIN_SLICES }).map((_, i) => {
+              const t = i / (COIN_SLICES - 1);           // 0 → 1 across the depth
+              const z = (t - 0.5) * COIN_DEPTH;
+              const isFace = i === 0 || i === COIN_SLICES - 1;
+              return (
+                <span
+                  key={i}
+                  className={`coin-face${isFace ? "" : " coin-face--inner"}`}
+                  style={{ "--z": `${z.toFixed(2)}px` } as React.CSSProperties}
+                />
+              );
+            })}
           </div>
         </div>
+
         <div className="relative mx-auto max-w-6xl px-6 pt-20 pb-24 md:pt-28 md:pb-32">
           <div className="grid items-center gap-14 md:grid-cols-2">
             <div className="text-center md:text-left">

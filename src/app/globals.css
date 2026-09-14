@@ -107,13 +107,22 @@ body {
   -webkit-mask-position: center;
   mask-position: center;
   transform: translateZ(var(--z));
-  background: linear-gradient(150deg, rgba(255,255,255,0.62), rgba(255,255,255,0.30));
+  /* Front and back faces. Kept low because seventeen stacked translucent
+     layers compound: alpha per layer has to fall as the slice count rises,
+     or the coin goes flat white when it faces the viewer. */
+  background: linear-gradient(150deg, rgba(255,255,255,0.26), rgba(255,255,255,0.14));
 }
 
-/* Interior slices are dimmer, so the stack reads as one solid piece of glass
-   rather than several overlapping ghosts. */
+/* Interior slices: individually almost invisible, but dense enough that
+   edge-on they overlap into a solid block of glass. */
 .coin-face--inner {
-  background: linear-gradient(150deg, rgba(255,255,255,0.22), rgba(255,255,255,0.12));
+  background: linear-gradient(150deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+}
+
+/* Halving the slice count on small screens keeps the fill cost sane; the
+   coin is smaller there, so the seam is not noticeable. */
+@media (max-width: 640px) {
+  .coin-face--inner:nth-child(even) { display: none; }
 }
 
 @keyframes coin-spin {

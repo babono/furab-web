@@ -40,13 +40,16 @@ export function HeroPhone({ variant }: { variant: Variant }) {
 
 /**
  * A marquee rather than a scroller: the strip drifts right to left on its own,
- * full-bleed. The list is rendered twice and the track shifts by exactly half
- * its width, so the loop is seamless. Spacing is a margin on each item rather
- * than a flex `gap` — with gaps the halfway point does not line up with the
- * start of the second copy, and the loop visibly jumps.
+ * full-bleed. The list is repeated and the track shifts by exactly one copy
+ * width, so the reset lands on an identical frame and the loop is invisible.
+ *
+ * Spacing is a margin on each item rather than a flex `gap`: with a gap the
+ * shift distance no longer matches a whole number of items, and the loop jumps.
  */
 export function ScreenMarquee({ variant }: { variant: Variant }) {
-  const run = [...shots, ...shots];
+  // Four copies: the track shifts by one copy width, so the remaining three
+  // must still cover the viewport at the end of the cycle. See globals.css.
+  const run = [...shots, ...shots, ...shots, ...shots];
   return (
     <div className="marquee">
       <div className="marquee-track">

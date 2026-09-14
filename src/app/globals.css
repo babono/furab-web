@@ -187,6 +187,9 @@ body {
 }
 
 .marquee-track {
+  /* One copy of the list: 5 items x (208px phone + 2.5rem margin). The track
+     shifts by exactly this, so the reset lands on an identical frame. */
+  --marquee-copy: 1240px;
   display: flex;
   width: max-content;
   animation: marquee 46s linear infinite;
@@ -202,8 +205,13 @@ body {
   flex: 0 0 auto;
 }
 
+/* Four copies rather than two. Shifting by one copy is only seamless while the
+   track still fills the viewport at the end of the cycle; two copies covered
+   just 1240px, so anything wider showed white before the reset. Four covers up
+   to 3720px. */
+
 @keyframes marquee {
-  to { transform: translateX(-50%); }
+  to { transform: translateX(calc(-1 * var(--marquee-copy))); }
 }
 
 @media (prefers-reduced-motion: reduce) {

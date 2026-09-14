@@ -29,8 +29,13 @@ site and the product read as one thing:
 
 Two effects are ported from the app rather than reinvented:
 
-- **`.mesh`** approximates the launch screen's animated `MeshGradient` with
-  three large radial blooms on slow, non-harmonic cycles.
+- **`.mesh`** approximates the launch screen's animated `MeshGradient` by
+  animating the *positions* of three radial blooms on non-harmonic cycles
+  (11s / 14s / 17s). The positions are custom properties registered with
+  `@property` — an unregistered var is a plain token and will not interpolate,
+  so without the registration the gradient sits still.
+- **`.watermark`** is the smiley mark behind the hero, masked from the same
+  logo SVG.
 - **`.glass-mark`** reproduces `GlassMark`: the smiley SVG is used as a *mask*
   with the glass layered underneath, so the gradient reads through the
   knocked-out eyes and mouth.
@@ -51,7 +56,9 @@ full-resolution 1320 × 2868 originals for App Store Connect live in the app
 repo under `AppStore/screenshots/6.9-inch/`.
 
 `public/brand/` holds the logo mark, wordmark and app icon, copied from the
-app's asset catalogue.
+app's asset catalogue. `logo-furab-wordmark.png` is `logo-text-furab.png`
+cropped to just the FURAB lettering, for the header; the uncropped original is
+kept as the source to re-crop from.
 
 Favicons live in `src/app/` under Next's file conventions (`icon.svg`,
 `icon.png`, `favicon.ico`, `apple-icon.png`) — there is no `icons` field in the

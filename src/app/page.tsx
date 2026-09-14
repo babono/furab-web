@@ -55,21 +55,11 @@ export default function Home() {
       {/* ---------------------------------------------------------------- Hero */}
       <section className="relative isolate overflow-hidden">
         <div className="mesh" aria-hidden />
+        <div className="watermark" aria-hidden />
         <div className="relative mx-auto max-w-6xl px-6 pt-20 pb-24 md:pt-28 md:pb-32">
           <div className="grid items-center gap-14 md:grid-cols-2">
             <div className="text-center md:text-left">
-              <div className="mx-auto mb-7 h-28 w-28 md:mx-0 glass-mark" aria-hidden />
-
-              <Image
-                src="/brand/logo-text-furab.png"
-                alt="FURAB — for your baby"
-                width={924}
-                height={402}
-                priority
-                className="mx-auto w-56 md:mx-0 md:w-64 drop-shadow-[0_3px_6px_rgba(0,0,0,0.18)]"
-              />
-
-              <p className="mt-8 text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl">
+              <p className="text-4xl font-bold leading-tight tracking-tight text-ink sm:text-5xl">
                 Track, Highlight, Remind.
               </p>
               <p className="mx-auto mt-4 max-w-md text-lg leading-relaxed text-ink/70 md:mx-0">

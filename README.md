@@ -31,11 +31,14 @@ Two effects are ported from the app rather than reinvented:
 
 - **`.mesh`** approximates the launch screen's animated `MeshGradient` by
   animating the *positions* of three radial blooms on non-harmonic cycles
-  (11s / 14s / 17s). The positions are custom properties registered with
+  (6s / 8s / 11s). The positions are custom properties registered with
   `@property` — an unregistered var is a plain token and will not interpolate,
   so without the registration the gradient sits still.
-- **`.watermark`** is the smiley mark behind the hero, masked from the same
-  logo SVG.
+- **`.coin`** is the smiley behind the hero, turning on its vertical axis like
+  a coin. Depth is faked by stacking five masked copies at different
+  `translateZ` values under `preserve-3d`; they separate as it turns, which
+  reads as thickness. CSS cannot extrude a real edge. The mark is left-right
+  symmetric, so the reverse face needs no special handling.
 - **`.glass-mark`** reproduces `GlassMark`: the smiley SVG is used as a *mask*
   with the glass layered underneath, so the gradient reads through the
   knocked-out eyes and mouth.

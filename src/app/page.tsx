@@ -55,7 +55,15 @@ export default function Home() {
       {/* ---------------------------------------------------------------- Hero */}
       <section className="relative isolate overflow-hidden">
         <div className="mesh" aria-hidden />
-        <div className="watermark" aria-hidden />
+        <div className="coin-stage" aria-hidden>
+          <div className="coin">
+            <span className="coin-face coin-face--inner" style={{ "--z": "-14px" } as React.CSSProperties} />
+            <span className="coin-face coin-face--inner" style={{ "--z": "-7px" } as React.CSSProperties} />
+            <span className="coin-face" style={{ "--z": "0px" } as React.CSSProperties} />
+            <span className="coin-face coin-face--inner" style={{ "--z": "7px" } as React.CSSProperties} />
+            <span className="coin-face coin-face--inner" style={{ "--z": "14px" } as React.CSSProperties} />
+          </div>
+        </div>
         <div className="relative mx-auto max-w-6xl px-6 pt-20 pb-24 md:pt-28 md:pb-32">
           <div className="grid items-center gap-14 md:grid-cols-2">
             <div className="text-center md:text-left">

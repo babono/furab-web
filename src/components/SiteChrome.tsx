@@ -5,15 +5,14 @@ export function SiteHeader() {
   return (
     <header className="absolute inset-x-0 top-0 z-10">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-        <Link href="/" className="flex items-center gap-2.5" aria-label="FURAB — home">
-          <Image src="/brand/appicon.png" alt="" width={32} height={32} className="rounded-lg" />
+        <Link href="/" aria-label="FURAB — home">
           <Image
             src="/brand/logo-furab-wordmark.png"
             alt="FURAB"
             width={777}
             height={239}
             priority
-            className="wordmark-ink h-4 w-auto"
+            className="h-5 w-auto drop-shadow-[0_1px_3px_rgba(0,0,0,0.28)]"
           />
         </Link>
         <div className="flex items-center gap-6 text-sm font-medium">

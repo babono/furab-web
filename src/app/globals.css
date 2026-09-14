@@ -61,24 +61,43 @@ body {
     radial-gradient(72% 62% at var(--bx3) var(--by3), #f2a3b4 0%, transparent 66%),
     linear-gradient(160deg, #bcd8ef 0%, #e9e6ec 48%, #f7ccda 100%);
   animation:
-    bloom1 11s ease-in-out infinite alternate,
-    bloom2 14s ease-in-out infinite alternate,
-    bloom3 17s ease-in-out infinite alternate;
+    bloom1 6s ease-in-out infinite alternate,
+    bloom2 8s ease-in-out infinite alternate,
+    bloom3 11s ease-in-out infinite alternate;
 }
 
 @keyframes bloom1 { to { --bx1: 42%; --by1: 40%; } }
 @keyframes bloom2 { to { --bx2: 58%; --by2: 8%;  } }
 @keyframes bloom3 { to { --bx3: 24%; --by3: 68%; } }
 
-/* The brand mark sitting behind the hero, the way a watermark does: large,
-   centred, and low enough in contrast to stay behind the text. */
-.watermark {
+/* The brand mark behind the hero, as a glass coin turning on its vertical
+   axis. Depth is faked by stacking several masked copies at different
+   translateZ values: under preserve-3d they separate as the coin turns, which
+   reads as thickness. A real extruded edge is not expressible in CSS.
+   The smiley is left-right symmetric, so the reverse face needs no special
+   handling — it looks identical. */
+.coin-stage {
   position: absolute;
   left: 50%;
   top: 50%;
   width: min(82vw, 660px);
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
+  perspective: 1400px;
+  pointer-events: none;
+}
+
+.coin {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  transform-style: preserve-3d;
+  animation: coin-spin 13s linear infinite;
+}
+
+.coin-face {
+  position: absolute;
+  inset: 0;
   -webkit-mask-image: url("/brand/logo-white.svg");
   mask-image: url("/brand/logo-white.svg");
   -webkit-mask-size: contain;
@@ -87,14 +106,18 @@ body {
   mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-position: center;
-  background: linear-gradient(150deg, rgba(255,255,255,0.62), rgba(255,255,255,0.34));
-  pointer-events: none;
+  transform: translateZ(var(--z));
+  background: linear-gradient(150deg, rgba(255,255,255,0.62), rgba(255,255,255,0.30));
 }
 
-/* The wordmark artwork is white; on the light chrome it needs to read as ink. */
-.wordmark-ink {
-  filter: brightness(0);
-  opacity: 0.88;
+/* Interior slices are dimmer, so the stack reads as one solid piece of glass
+   rather than several overlapping ghosts. */
+.coin-face--inner {
+  background: linear-gradient(150deg, rgba(255,255,255,0.22), rgba(255,255,255,0.12));
+}
+
+@keyframes coin-spin {
+  to { transform: rotateY(360deg); }
 }
 
 /* The glass smiley, built the same way as GlassMark in the app: the artwork
@@ -117,6 +140,6 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .mesh { animation: none; }
-  .watermark { transition: none; }
+  .coin { animation: none; }
   html { scroll-behavior: auto; }
 }

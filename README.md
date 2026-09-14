@@ -37,6 +37,13 @@ Two effects are ported from the app rather than reinvented:
 
 Both honour `prefers-reduced-motion`.
 
+## Deployment
+
+Deploys to Vercel as-is — no build configuration needed. The production domain
+is `furab.app`; it is hardcoded in `metadataBase` (`src/app/layout.tsx`),
+`sitemap.ts` and `robots.ts`, so change it in those three places if the domain
+ever moves.
+
 ## Assets
 
 `public/screenshots/` holds web-optimised captures (max 1200px). The

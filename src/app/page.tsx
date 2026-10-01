@@ -88,9 +88,12 @@ export default function Home() {
               </p>
 
               <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center md:justify-start">
-                <span className="inline-flex h-13 items-center rounded-full bg-brand px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-brand/30">
-                  Coming to the App Store
-                </span>
+                <a
+                  href="https://apps.apple.com/app/furab/id6812040996"
+                  className="inline-flex h-13 items-center rounded-full bg-brand px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-brand/30 transition hover:brightness-110"
+                >
+                  Download on the App Store
+                </a>
                 <a
                   href="#features"
                   className="inline-flex items-center rounded-full bg-white/70 px-7 py-3.5 text-base font-semibold text-ink backdrop-blur transition hover:bg-white"

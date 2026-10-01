@@ -1,10 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 
+export const APP_STORE_URL = "https://apps.apple.com/app/furab/id6812040996";
+
 export function SiteHeader() {
   return (
-    <header className="absolute inset-x-0 top-0 z-10">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
+    // Fixed rather than sticky so it keeps floating over the hero mesh. The
+    // tinted glass picks up the hero's colours and keeps the white mark
+    // legible once the page scrolls onto white sections.
+    <header className="fixed inset-x-0 top-0 z-30 border-b border-white/30 bg-gradient-to-r from-[#bcd8ef]/75 to-[#f7ccda]/75 backdrop-blur-md">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
         <Link href="/" className="flex items-center gap-2.5" aria-label="FURAB — home">
           {/* The mark is white artwork on transparency; unoptimized because
               Next's image optimizer refuses SVG without dangerouslyAllowSVG. */}
@@ -26,9 +31,15 @@ export function SiteHeader() {
             className="h-5 w-auto drop-shadow-[0_1px_3px_rgba(0,0,0,0.28)]"
           />
         </Link>
-        <div className="flex items-center gap-6 text-sm font-medium">
-          <Link href="/privacy" className="text-ink/70 transition hover:text-ink">Privacy</Link>
+        <div className="flex items-center gap-5 text-sm font-medium">
           <Link href="/contact" className="text-ink/70 transition hover:text-ink">Support</Link>
+          <a
+            href={APP_STORE_URL}
+            className="inline-flex items-center gap-1.5 rounded-full bg-brand px-4 py-2 font-semibold text-white shadow-md shadow-brand/25 transition hover:brightness-110"
+          >
+            <AppleMark className="h-3.5 w-3.5" />
+            Download
+          </a>
         </div>
       </nav>
     </header>

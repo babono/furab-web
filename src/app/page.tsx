@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { HeroPhone, ScreenMarquee, useVariant } from "@/components/Screens";
-import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import { APP_STORE_URL, SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { HighlightIcon, RemindIcon, TrackIcon } from "@/components/Icon";
 import { moduleIcons } from "@/components/ModuleIcons";
 
@@ -89,7 +89,7 @@ export default function Home() {
 
               <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center md:justify-start">
                 <a
-                  href="https://apps.apple.com/app/furab/id6812040996"
+                  href={APP_STORE_URL}
                   className="inline-flex h-13 items-center rounded-full bg-brand px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-brand/30 transition hover:brightness-110"
                 >
                   Download on the App Store

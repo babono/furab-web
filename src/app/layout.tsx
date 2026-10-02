@@ -19,11 +19,11 @@ export const metadata: Metadata = {
     title: "FURAB — for your baby",
     description,
     type: "website",
-    images: [{ url: "/screenshots/01-home.png", width: 1320, height: 2868 }],
   },
   twitter: { card: "summary_large_image", title: "FURAB — for your baby", description },
   // Safari's Smart App Banner — renders <meta name="apple-itunes-app">.
   itunes: { appId: "6812040996" },
+  // The share image comes from opengraph-image.tsx in this directory.
   // Icons come from the file conventions in this directory — icon.svg,
   // icon.png and apple-icon.png — so there is no `icons` field here.
 };

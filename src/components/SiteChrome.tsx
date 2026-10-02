@@ -31,16 +31,13 @@ export function SiteHeader() {
             className="h-5 w-auto drop-shadow-[0_1px_3px_rgba(0,0,0,0.28)]"
           />
         </Link>
-        <div className="flex items-center gap-5 text-sm font-medium">
-          <Link href="/contact" className="text-ink/70 transition hover:text-ink">Support</Link>
-          <a
-            href={APP_STORE_URL}
-            className="inline-flex items-center gap-1.5 rounded-full bg-brand px-4 py-2 font-semibold text-white shadow-md shadow-brand/25 transition hover:brightness-110"
-          >
-            <AppleMark className="h-3.5 w-3.5" />
-            Download
-          </a>
-        </div>
+        <a
+          href={APP_STORE_URL}
+          className="inline-flex items-center gap-1.5 rounded-full bg-brand px-4 py-2 text-sm font-semibold text-white shadow-md shadow-brand/25 transition hover:brightness-110"
+        >
+          <AppleMark className="h-3.5 w-3.5" />
+          Download
+        </a>
       </nav>
     </header>
   );
